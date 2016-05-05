@@ -17,7 +17,7 @@ class MountInfoBotConfig extends Config {
 		// for production: Herokuのenv変数を上書き
 		$pageId = getenv('FACEBOOK_PAGE_ID');
 		if ($pageId) {
-			$this->config['FACEBOOK_MESSANGER_API']['PAGE_ID'] = $verifyToken;
+			$this->config['FACEBOOK_MESSANGER_API']['PAGE_ID'] = $pageId;
 		}
 		$accessToken = getenv('FACEBOOK_PAGE_ACCESS_TOKEN');
 		if ($accessToken) {
