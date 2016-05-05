@@ -2,7 +2,7 @@
 /**
  * セットアップ
  */
-require_once('web/Config.php');
+require_once('web/libs/Config.php');
 
 // コンフィグ生成
 $path = 'config.json';
