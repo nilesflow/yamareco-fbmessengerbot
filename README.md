@@ -1,21 +1,33 @@
-# fbmessengerbot-test
+# yamareco-fbmessengerbot
 
-## これはなに？
+Yamareco APIを使って、山の情報を検索するFacebook Messenger Bot
+PHP on Heroku、HTTPSを処理できる普通にPHPが動作するサーバで動作
 
-Facebook Messenger Bot をひとまず PHP on Heroku で動かしてみるキットです.
-silex を使っています.
+以下のFacebookページのBot
+[山の情報を調べて返すBot](https://www.facebook.com/letsgoclimbing/)
 
-## 始め方
+## していること
 
-* Facebook App と Facebook Page を作成してください.
-* Heroku アカウントを取得してください.
-* 下の Deploy ボタンを押してデプロイします. 環境変数に適当な文字列を入れておきます(後で編集したり使ったりします).
+* Facebook Messenger Platform
+  * Welcome Messageの設定
+  *　User Profileの取得（※未保存）
+  * Webhook(Text, Payload) ※Imageは未使用
+  * Send Messaege(Text, Generic Template, Button Template) ※Image, Receiptは未使用
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](http://bit.ly/fbmessengerbot-test-deploy)
+* Yamareco API
+  * poi情報の検索（地名、エリア指定、データ種別指定）※ジャンルは未使用
+  * 近隣情報検索
+  * エリア情報の取得
+  * データ種別情報の取得
 
-* https://developers.facebook.com/docs/messenger-platform/quickstart を参考に、以下の手順を進めてください.
-    * Facebook App に Messenger を利用する設定を追加し、Facebook Page の Access Token を取得 -> Heroku にデプロイしたアプリケーションの環境変数 FACEBOOK_PAGE_ACCESS_TOKEN に設定します.
-    * Webhooks URL として、 <Heroku にデプロイしたURL>/callback を指定し、Verify Token にはデプロイ時に指定した FACEBOOK_PAGE_VERIFY_TOKEN を指定します. events として messages にチェックを入れ、Verify します.
-    * Facebook 側の所定の URL に対して POST リクエストを送信し、Facebook Page に App を登録(Subscribe)します.
-* Facebook メッセンジャーから Facebook Page に話しかけてみましょう.
-* web/index.php を編集して Hack してみましょう. Enjoy!
+## できること
+
+* 検索
+　　* キーワード指定
+　　* 緯度経度による近隣情報
+　　* エリア指定
+　　* データ種別指定
+
+* 表示方法
+　　* ヤマレコ表示
+　　* Google Map表示

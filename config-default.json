@@ -1,0 +1,21 @@
+{
+	"FACEBOOK_MESSANGER_PLATFORM" : {
+		"ENDPOINT" : "/callback",
+		"VERIFY_TOKEN" : null
+	},
+	"FACEBOOK_MESSANGER_API" : {
+		"DRIVER" : "guzzle",
+		"PAGE_ID" : null,
+		"PAGE_ACCESS_TOKEN" : null
+	},
+	"YAMARECO_API" : {
+		"DRIVER" : "curl"
+	},
+	"LOGGER" : {
+		"BASIC" : {
+			"VALID" : false,
+			"DIR" : "/tmp/",
+			"FILENAME" : "dummy.log"
+		}
+	}
+}

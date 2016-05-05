@@ -1,13 +1,16 @@
 {
-  "name": "Facebook Messenger Bot Test",
-  "description": "facebook messenger bot tiny starter kit written in PHP.",
-  "repository": "https://github.com/CoachUnited/fbmessengerbot-test.git",
+  "name": "Facebook Messenger Bot with Yamareco API",
+  "description": "Facebook Messenger Bot that tells mount information using Yamareco API, and written in PHP.",
+  "repository": "",
   "env": {
     "FACEBOOK_PAGE_ACCESS_TOKEN": {
       "description": "Facebook Page Access Token"
     },
     "FACEBOOK_PAGE_VERIFY_TOKEN": {
       "description": "Facebook Page Verify Token"
+    },
+    "FACEBOOK_PAGE_ID": {
+      "description": "Facebook Page ID"
     }
   }
 }
