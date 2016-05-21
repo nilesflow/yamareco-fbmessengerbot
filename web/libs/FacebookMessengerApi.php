@@ -430,6 +430,7 @@ class FacebookMessengerApi extends BaseApi {
 		}
 		// @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#errors
 		if (isset($arr['error'])) {
+			$this->logError($options);
 			$this->logError($arr['error']);
 			$code = $this->getHash($arr, 'code', 0);
 			throw new FacebookMessengerApiException("messanger api error.", $code);

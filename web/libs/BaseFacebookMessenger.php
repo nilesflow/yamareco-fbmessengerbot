@@ -40,13 +40,18 @@ abstract class BaseFacebookMessenger extends BaseRunnable implements FacebookMes
 	 */
 	public function setup(array $query) {
 		$response = "";
-		if ($this->getHash($query, 'hub_verify_token') === $this->verifyToken) {
-			// 初回に、WelcomeMessage設定
-			$this->initWelcomeMessage();
-
-			// return "verify ok".
-			$response = $this->getHash($query, 'hub_challenge');
-			$this->logInfo('verify ok.');
+		try {
+			if ($this->getHash($query, 'hub_verify_token') === $this->verifyToken) {
+				// 初回に、WelcomeMessage設定
+				$this->initWelcomeMessage();
+	
+				// return "verify ok".
+				$response = $this->getHash($query, 'hub_challenge');
+				$this->logInfo('verify ok.');
+			}
+		}
+		catch (Exception $e) {
+			$this->logFatal($e->getMessage());
 		}
 		return $response;
 	}
@@ -56,21 +61,26 @@ abstract class BaseFacebookMessenger extends BaseRunnable implements FacebookMes
 	 * @see FacebookMessengerInterface::webhook()
 	 */
 	public function webhook($contents) {
-//		$this->logDebug($contents);
-		$body = json_decode($contents, true);
+		try {
+//			$this->logDebug($contents);
+			$body = json_decode($contents, true);
+		
+			// Array containing event data
+			foreach ($body['entry'] as $obj) {
+				$this->logInfo(sprintf('obj: %s', json_encode($obj)));
+		
+				// Object containing data related to messaging
+				foreach ($obj['messaging'] as $m) {
+					$this->logInfo(sprintf('messaging: %s', json_encode($m)));
 	
-		// Array containing event data
-		foreach ($body['entry'] as $obj) {
-			$this->logInfo(sprintf('obj: %s', json_encode($obj)));
-	
-			// Object containing data related to messaging
-			foreach ($obj['messaging'] as $m) {
-				$this->logInfo(sprintf('messaging: %s', json_encode($m)));
-
-				// internal process.
-				$from = $m['sender']['id'];
-				$this->receivedMessaging($from, $m);
+					// internal process.
+					$from = $m['sender']['id'];
+					$this->receivedMessaging($from, $m);
+				}
 			}
+		}
+		catch (Exception $e) {
+			$this->logFatal($e->getMessage());
 		}
 		return 0;
 	}
