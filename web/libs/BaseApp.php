@@ -18,5 +18,19 @@ abstract class BaseApp extends BaseRunnable {
 		// ログ出力設定
 		$logger = new Logger($config['LOGGER']);
 		$this->attachLogger($logger);
+
+                // Fatal Errorの捕捉
+                set_error_handler(array($this, 'exception_error_handler'));
 	}
+
+
+	/**
+	 * 実行時エラーの捕捉
+	 *
+	 * Parse Error等は捕捉できない。
+	 */
+        public function exception_error_handler($severity, $message, $file, $line) {
+                throw new ErrorException($message, 0, $severity, $file, $line);
+        }
+
 }
