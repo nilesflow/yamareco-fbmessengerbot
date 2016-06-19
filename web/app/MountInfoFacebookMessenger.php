@@ -276,31 +276,34 @@ class MountInfoFacebookMessenger extends BaseFacebookMessenger {
 		// 各要素をコールバックで生成してテンプレートを送信
 		return $this->sendGenericElements($id, $pois, function($i, $poi, &$element){
 			$element = [];
-			$element['title'] = $poi['name']." ".$poi['yomi'];
-			$element['item_url'] = $poi['page_url'];
-			$element['image_url'] = $poi['photo_url'];
+			$element['title'] = $this->getHash($poi, 'name')." ".$this->getHash($poi, 'yomi');
+			$element['item_url'] = $this->getHash($poi, 'page_url');
+			$element['image_url'] = $this->getHash($poi, 'photo_url');
+			$elevation = $this->getHash($poi, 'elevation', "0");
 			// 山以外の情報は標高がない場合が有る
-			if ($poi['elevation'] != "0") {
-				$element['subtitle'] = $poi['elevation']."m ";
+			if ($elevation != "0") {
+				$element['subtitle'] = $elevation."m ";
 			}
 			else {
 				$element['subtitle'] = "";
 			}
-			$element['subtitle'] .= $poi['detail'];
-			$element['buttons'] = [
-				[
-					'type' => 'web_url',
-					'title' => "Google Mapで開く",
-					'url' => "https://maps.google.com/maps?q=".$poi['lat'].",".$poi['lon']."&ll=".$poi['lat'].",".$poi['lon']."&z=10&".$poi['name'],
-				],
-				[
-					'type' => 'postback',
-					'title' => "近くの情報を検索",
-					'payload' => json_encode([
-						'command' => 'nearby', 'lat' => $poi['lat'], 'lon' => $poi['lon'], 'name' => $poi['name']
-					])
-				],
-			];
+			$element['subtitle'] .= $this->getHash($poi, 'detail');
+			if (isset($poi['lat']) && isset($poi['lon'])) {
+				$element['buttons'] = [
+					[
+						'type' => 'web_url',
+						'title' => "Google Mapで開く",
+						'url' => "https://maps.google.com/maps?q=".$poi['lat'].",".$poi['lon']."&ll=".$poi['lat'].",".$poi['lon']."&z=10&".$this->getHash($poi, 'name'),
+					],
+					[
+						'type' => 'postback',
+						'title' => "近くの情報を検索",
+						'payload' => json_encode([
+							'command' => 'nearby', 'lat' => $poi['lat'], 'lon' => $poi['lon'], 'name' => $this->getHash($poi, 'name')
+						])
+					],
+				];
+			}
 			return true;
 		});
 	}
