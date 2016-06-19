@@ -64,7 +64,7 @@ class MountInfoFacebookMessenger extends BaseFacebookMessenger {
 			$this->sendNextAction($from, $text);
 		}
 		catch (YamarecoApiException $e) {
-			switch ($e->getCode()) {
+			switch ($e->errcode) {
 				case 'NODATA':
 					$text = "Sorry.. データが見つかりませんでした。";
 					break;

@@ -1,7 +1,7 @@
 <?php
 
 require_once('BaseApi.php');
-require_once('exception/LibException.php');
+require_once('exception/YamarecoApiException.php');
 
 /**
  * ヤマレコ Web API
