@@ -12,7 +12,7 @@
       "php setup.php"
     ],
     "phpdoc" : [
-      "phpdoc run --target /var/www/html/phpdoc/mtinfo-bot --directory web --filename setup.php"
+      "./makephpdoc.sh"
     ]
   }
 }
