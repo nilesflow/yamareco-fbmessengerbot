@@ -31,4 +31,3 @@ PHP on Heroku、HTTPSを処理できる普通にPHPが動作するサーバで�
 * 表示方法
   * ヤマレコ表示
   * Google Map表示
-  
